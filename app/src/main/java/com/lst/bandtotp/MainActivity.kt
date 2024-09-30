@@ -180,8 +180,12 @@ class MainActivity : ComponentActivity() {
             }
         }
         fun startUpload(){
-            openApp()
-            pickFileLauncher.launch("text/plain")
+            if(::nodeId.isInitialized) {
+                openApp()
+                pickFileLauncher.launch("text/plain")
+            }else{
+                Toast.makeText(this, "未连接到设备", Toast.LENGTH_SHORT).show()
+            }
         }
         LaunchedEffect(Unit) {
             while (!(::nodeId.isInitialized)) {
@@ -194,7 +198,8 @@ class MainActivity : ComponentActivity() {
         }
 
         Column(
-            modifier = modifier.background(MaterialTheme.colorScheme.background)
+            modifier = modifier
+                .background(MaterialTheme.colorScheme.background)
                 .fillMaxSize()
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -214,8 +219,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
             Button(
-                onClick = { startUpload() }
-
+                onClick = { startUpload() } ,
+                modifier = Modifier
+                        .fillMaxWidth()
             ) {
                 Text("选择文本文档")
             }
