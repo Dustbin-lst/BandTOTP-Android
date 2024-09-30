@@ -267,7 +267,7 @@ class MainActivity : ComponentActivity() {
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "BandTOTP by lesetong",
+                        text = "BandTOTP by lesetong\n本软件使用MIT协议开源\nCopyright (c) 2024 lesetong",
                         fontSize = 16.sp,
                         color = MaterialTheme.colorScheme.onPrimaryContainer // 动态颜色
                     )
