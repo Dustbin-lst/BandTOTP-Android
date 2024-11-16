@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -51,9 +52,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         nodeApi= Wearable.getNodeApi(this)
-        //enableEdgeToEdge()
+        enableEdgeToEdge()
         setContent {
-            MyApp()
+            BandtotpTheme(){
+                MainContent()
+            }
         }
     }
     private fun openApp(){
@@ -140,23 +143,6 @@ class MainActivity : ComponentActivity() {
                 }}
     }
     @Composable
-    fun MyApp() {
-        // 设置状态栏颜色
-        val systemUiController = rememberSystemUiController()
-        val useDarkIcons =isSystemInDarkTheme()
-//    SideEffect {
-//        systemUiController.setSystemBarsColor(
-//            color = MaterialTheme.colorScheme.surface,
-//            darkIcons = useDarkIcons
-//        )
-//    }
-        BandtotpTheme(darkTheme = useDarkIcons){
-            MainContent()
-        }
-
-    }
-
-    @Composable
     fun MainContent(modifier: Modifier = Modifier) {
         val context = LocalContext.current
         var connectedDeviceText by remember { mutableStateOf("设备未连接") }
@@ -200,7 +186,7 @@ class MainActivity : ComponentActivity() {
         Column(
             modifier = modifier
                 .background(MaterialTheme.colorScheme.background)
-                .fillMaxSize()
+                .fillMaxSize().systemBarsPadding()
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
